@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {{ job.job_title }} | {{ job.company.company_name }}
+{% endblock title %}
+{% block content %}
+    <main class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <article class="mx-auto max-w-4xl rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200/10 sm:p-8">
+            <!-- Job Header -->
+            <header class="mb-8">
+                <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <img src="{{ job.company.company_logo.url }}"
+                                 alt="{{ job.company.company_name }} logo"
+                                 width="64"
+                                 height="64"
+                                 loading="lazy"
+                                 class="h-16 w-16 rounded-full object-contain ring-2 ring-gray-100 shadow-md" />
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-emerald-700">{{ job.company.company_name }}</p>
+                            <h1 class="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">{{ job.job_title }}</h1>
+                            <div class="mt-2 flex items-center gap-2 text-sm text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-4 w-4"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span>{{ job.location }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-1 text-sm sm:text-right">
+                        <div class="flex items-center gap-1 text-gray-600 sm:justify-end">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-4 w-4"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Posted: <time datetime="{{ job.date_posted|date:'Y-m-d' }}">{{ job.date_posted }}</time></span>
+                        </div>
+                        <div class="flex items-center gap-1 text-rose-600 sm:justify-end">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-4 w-4"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Closes: <time datetime="{{ job.application_deadline|date:'Y-m-d' }}">{{ job.application_deadline }}</time></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Job Content Sections -->
+            <div class="space-y-8 divide-y divide-gray-200">
+                <!-- Job Description -->
+                <section class="pt-4 first:pt-0">
+                    <h2 class="mb-4 text-xl font-semibold text-gray-900">Job Description</h2>
+                    <div class="prose prose-sm max-w-none text-gray-600">{{ job.job_description|linebreaks }}</div>
+                </section>
+                <!-- Required Skills -->
+                <section class="pt-8">
+                    <h2 class="mb-4 text-xl font-semibold text-gray-900">Required Skills</h2>
+                    <div class="prose prose-sm max-w-none text-gray-600">{{ job.skills_required|linebreaks }}</div>
+                </section>
+                <!-- Responsibilities -->
+                <section class="pt-8">
+                    <h2 class="mb-4 text-xl font-semibold text-gray-900">Responsibilities</h2>
+                    <div class="prose prose-sm max-w-none text-gray-600">{{ job.responsibilities|linebreaks }}</div>
+                </section>
+                <!-- Job Details Grid -->
+                <section class="pt-8">
+                    <h2 class="mb-4 text-xl font-semibold text-gray-900">Job Details</h2>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div class="rounded-lg bg-gray-50 p-4">
+                            <h3 class="text-sm font-medium text-gray-500">Experience Level</h3>
+                            <p class="mt-1 text-gray-900">{{ job.experience_level }}</p>
+                        </div>
+                        <div class="rounded-lg bg-gray-50 p-4">
+                            <h3 class="text-sm font-medium text-gray-500">Job Type</h3>
+                            <p class="mt-1 text-gray-900">{{ job.job_type }}</p>
+                        </div>
+                        <div class="rounded-lg bg-gray-50 p-4">
+                            <h3 class="text-sm font-medium text-gray-500">Salary Range</h3>
+                            <p class="mt-1 text-gray-900">{{ job.salary_range }}</p>
+                        </div>
+                        <div class="rounded-lg bg-gray-50 p-4">
+                            <h3 class="text-sm font-medium text-gray-500">Positions Available</h3>
+                            <p class="mt-1 text-gray-900">{{ job.positions }}</p>
+                        </div>
+                        <div class="rounded-lg bg-gray-50 p-4">
+                            <h3 class="text-sm font-medium text-gray-500">Degree Required</h3>
+                            <p class="mt-1 text-gray-900">{{ job.degree_required }}</p>
+                        </div>
+                        <div class="rounded-lg bg-gray-50 p-4">
+                            <h3 class="text-sm font-medium text-gray-500">Job Category</h3>
+                            <p class="mt-1 text-gray-900">{{ job.job_category }}</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- Apply Button -->
+            <footer class="mt-12">
+                {% if user.is_authenticated %}
+                    {% csrf_token %}
+                    <a href="{% url 'apply_job' job.job_id %}"
+                       class="flex w-full items-center justify-center gap-2 rounded-md bg-emerald-600 px-6 py-3 font-medium text-white shadow-sm transition-all hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 sm:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Apply Now
+                    </a>
+                {% else %}
+                    <div class="text-center mt-4 text-gray-600">
+                        <a href="{% url 'login' %}" class="text-primary-green hover:underline">Login</a> to apply for this job.
+                    </div>
+                {% endif %}
+            </footer>
+        </article>
+    </main>
+{% endblock content %}

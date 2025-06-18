@@ -1,0 +1,151 @@
+{% extends 'job_seeker/base.html' %}
+{% load static %}
+{% block title %}
+    {{ user.username }}'s Profile
+{% endblock title %}
+{% block main %}
+    <main class="p-4 md:p-8 lg:flex lg:gap-8 max-w-7xl mx-auto">
+        <!-- Main Profile Section -->
+        <section class="lg:flex-1 lg:max-w-2xl">
+            <!-- Profile Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <!-- Banner -->
+                <div class="relative h-32 bg-gray-100">
+                    <img src="{% static 'imgs/banner.png' %}"
+                         alt=""
+                         class="w-full h-full object-cover"
+                         aria-hidden="true">
+                    {% if user == request.user %}
+                        <button class="absolute top-2 right-2 p-1 bg-white/90 rounded-full shadow-sm hover:bg-white transition-colors"
+                                aria-label="Edit banner image"
+                                data-action="edit-banner">
+                            <i class="ri-image-edit-line text-gray-700 text-lg"></i>
+                        </button>
+                    {% endif %}
+                    <div class="absolute -bottom-12 left-6">
+                        <div class="w-24 h-24 md:w-32 md:h-32 border-4 border-white rounded-full shadow-lg">
+                            <img src="{{ user.profile_img.url }}"
+                                 alt="{{ user.username }}'s profile picture"
+                                 class="w-full h-full object-cover rounded-full">
+                            {% if user == request.user %}
+                                <button class="absolute bottom-0 right-0 p-1.5 bg-white rounded-full shadow-sm hover:bg-gray-50 border border-gray-200"
+                                        aria-label="Edit profile picture"
+                                        data-action="edit-avatar">
+                                    <i class="ri-pencil-fill text-gray-700 text-sm"></i>
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile Info -->
+                <div class="pt-16 md:pt-20 px-6 pb-6">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start">
+                        <div class="space-y-2">
+                            <h1 class="text-2xl font-bold text-gray-900">
+                                {% if user.first_name %}
+                                    {{ user.first_name }} {{ user.last_name }}
+                                {% else %}
+                                    {{ user.username }}
+                                {% endif %}
+                            </h1>
+                            <p class="text-gray-600">
+                                Product Designer at <span class="font-semibold">Twitter</span>
+                            </p>
+                            {% if data.address %}
+                                <div class="flex items-center text-gray-500 space-x-2">
+                                    <i class="ri-map-pin-line" aria-hidden="true"></i>
+                                    <span>{{ data.address }}</span>
+                                </div>
+                            {% endif %}
+                            <span class="inline-flex items-center px-3 py-1.5 bg-green-50 text-green-700 rounded-full text-sm">
+                                <i class="ri-flag-line mr-2" aria-hidden="true"></i>
+                                Open For Opportunities
+                            </span>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <a href="#"
+                               class="mt-4 md:mt-0 px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+                               aria-label="Edit profile">Edit Profile</a>
+                        {% endif %}
+                    </div>
+                    <!-- About Section -->
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">About Me</h2>
+                        <p class="text-gray-600 leading-relaxed">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, sint. Expedita tempore
+                            ipsum dicta voluptatem veritatis molestias consectetur, nobis maiores facilis nam id
+                            voluptatum dolorum debitis rem illo exercitationem hic vel blanditiis error repudiandae!
+                            Pariatur odio sequi quas enim molestiae aperiam, eos fugit autem ullam vitae est consequatur
+                            ipsa doloribus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Sidebar Details -->
+        <aside class="mt-8 lg:mt-0 lg:w-80">
+            <div class="bg-white rounded-xl border border-gray-200 p-6 space-y-6">
+                <!-- Contact Info -->
+                <div class="space-y-4">
+                    <h2 class="text-lg font-semibold text-gray-900">Contact Information</h2>
+                    {% if user == request.user %}
+                        <button class="p-1 text-gray-400 hover:text-primary-600 rounded-md transition-colors"
+                                aria-label="Edit contact information"
+                                data-action="edit-contact">
+                            <i class="ri-pencil-line"></i>
+                        </button>
+                    {% endif %}
+                    <dl class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <dt class="text-gray-400 pt-1">
+                                <i class="ri-mail-line" aria-hidden="true"></i>
+                                <span class="sr-only">Email</span>
+                            </dt>
+                            <dd class="text-gray-700">
+                                {{ user.email }}
+                            </dd>
+                        </div>
+                        {% if data.phone %}
+                            <div class="flex items-start space-x-3">
+                                <dt class="text-gray-400 pt-1">
+                                    <i class="ri-smartphone-line" aria-hidden="true"></i>
+                                    <span class="sr-only">Phone</span>
+                                </dt>
+                                <dd class="text-gray-700">
+                                    {{ data.phone }}
+                                </dd>
+                            </div>
+                        {% endif %}
+                        {% if user.languages %}
+                            <div class="flex items-start space-x-3">
+                                <dt class="text-gray-400 pt-1">
+                                    <i class="ri-translate-2" aria-hidden="true"></i>
+                                    <span class="sr-only">Languages</span>
+                                </dt>
+                                <dd class="text-gray-700">
+                                    {{ user.languages|join:", " }}
+                                </dd>
+                            </div>
+                        {% endif %}
+                    </dl>
+                </div>
+                <!-- Social Links (Example) -->
+                <div class="pt-4 border-t border-gray-100">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Social Profiles</h2>
+                    <div class="space-y-2">
+                        <a href="#"
+                           class="flex items-center text-gray-600 hover:text-primary-600 space-x-2">
+                            <i class="ri-linkedin-box-fill text-xl" aria-hidden="true"></i>
+                            <span>LinkedIn Profile</span>
+                        </a>
+                        <a href="#"
+                           class="flex items-center text-gray-600 hover:text-primary-600 space-x-2">
+                            <i class="ri-github-fill text-xl" aria-hidden="true"></i>
+                            <span>GitHub Portfolio</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+{% endblock main %}

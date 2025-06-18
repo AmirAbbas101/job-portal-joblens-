@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+    Dashboard
+{% endblock title %}
+{% block header_section %}
+{% endblock header_section %}
+{% block content %}
+    <header class="flex relative">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+               class="hidden w-72 bg-gray-100 shadow-md lg:flex flex-col justify-between">
+            {% include "job_seeker/partials/side_bar.html" %}
+        </aside>
+        <!-- Main content area -->
+        <div class="flex flex-col w-full bg-white">
+            <!-- Navbar -->
+            <nav class="h-20 bg-transparent px-8 shadow-sm flex justify-between items-center">
+                {% include "job_seeker/partials/nav_bar.html" with page_name=page_name %}
+            </nav>
+            {% block main %}
+            {% endblock main %}
+        </div>
+    </header>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}

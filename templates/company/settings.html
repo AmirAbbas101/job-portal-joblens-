@@ -1,0 +1,24 @@
+{% extends 'job_seeker/base.html' %}
+{% load static %}
+{% block title %}
+    Settings
+{% endblock title %}
+{% block main %}
+    <main class="relative px-8 py-8 flex flex-col gap">
+        <!-- Nav Section -->
+        <section class="border-b-[1px] border-gray-300 flex gap-x-8">
+            <h3 id="btn-my-profile"
+                class="settings-nav-item border-white text-gray-500 active">My Profile</h3>
+            <h3 id="btn-login-details"
+                class="settings-nav-item border-white text-gray-500">Login Details</h3>
+            <h3 id="btn-notifications"
+                class="settings-nav-item border-white text-gray-500">Notifications</h3>
+        </section>
+        <!-- My profile Settings Section -->
+        {% include "job_seeker/partials/profile_settings.html" %}
+        <!-- Login Details Settings Section -->
+        {% include "job_seeker/partials/login_details_settings.html" %}
+        <!-- Notifictions Settings Section -->
+        {% include "job_seeker/partials/notifications_settings.html" %}
+    </main>
+{% endblock main %}

@@ -1,0 +1,46 @@
+{% extends 'job_seeker/base.html' %}
+{% load static %}
+{% block title %}
+    Settings
+{% endblock title %}
+{% block main %}
+    <main class="relative px-8 py-8 flex flex-col gap">
+        <!-- Settings Navigation -->
+        <nav class="flex flex-col md:flex-row gap-8 mb-8">
+            <button id="btn-my-profile"
+                    class="settings-nav-item active flex-1 md:flex-none">My Profile</button>
+            <button id="btn-login-details" class="settings-nav-item flex-1 md:flex-none">Login Details</button>
+            <button id="btn-notifications" class="settings-nav-item flex-1 md:flex-none">Notifications</button>
+        </nav>
+        <!-- Settings Content -->
+        <div class="flex flex-col gap-8 w-full max-w-4xl">
+            <!-- My Profile Section -->
+            <section id="my-profile" class="settings-content active">
+                {% include "job_seeker/partials/profile_settings.html" %}
+            </section>
+            <!-- Login Details Section -->
+            <section id="login-details" class="settings-content hidden">
+                {% include "job_seeker/partials/login_details_settings.html" %}
+            </section>
+            <!-- Notifications Section -->
+            <section id="notifications" class="settings-content hidden">
+                {% include "job_seeker/partials/notifications_settings.html" %}
+            </section>
+        </div>
+    </main>
+    <script>
+        // Simple tab switching functionality
+        document.querySelectorAll('.settings-nav-item').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and content
+                document.querySelectorAll('.settings-nav-item').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.settings-content').forEach(content => content.classList.add('hidden'));
+                
+                // Add active class to clicked button and show corresponding content
+                button.classList.add('active');
+                const contentId = button.id.replace('btn-', '');
+                document.getElementById(contentId).classList.remove('hidden');
+            });
+        });
+    </script>
+{% endblock main %}

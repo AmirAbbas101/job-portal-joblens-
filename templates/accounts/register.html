@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Register
+{% endblock title %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+    <section class="bg-gray-100 flex justify-center items-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md my-5">
+            <h2 class="text-2xl font-bold text-gray-800 text-center">Register</h2>
+            <p class="font-bold text-gray-800 text-center">
+                Welcome to <a href="#" class="text-primary-green hover:text-secondary-green">JobLens</a>
+            </p>
+            {% comment %}Errors{% endcomment %}
+            {% if messages %}
+                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                    {% for message in messages %}
+                        <li class="{% if message.tags == 'error' %} text-red-500{% elif message.tags == 'success' %} text-green-500{% endif %}">
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <!-- Signup Form -->
+            <form class="mt-6"
+                  action="{% url 'register' %}"
+                  enctype="multipart/form-data"
+                  method="post"
+                  onsubmit="return validatePassword()">
+                {% csrf_token %}
+                <!-- Google Signup Button -->
+                <button type="button"
+                        class="w-full flex items-center rounded-lg justify-center border border-primary-green py-2 hover:bg-gray-100 transition">
+                    <img src="https://www.svgrepo.com/show/355037/google.svg"
+                         alt="Google Logo"
+                         class="w-5 h-5 mr-2">
+                    Continue with Google
+                </button>
+                <!-- Divider -->
+                <div class="text-center text-gray-500 my-4">OR</div>
+                <!-- Username -->
+                <div>
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text"
+                           name="username"
+                           id="username"
+                           placeholder="Enter your username"
+                           class="form-input"
+                           required>
+                    <small class="text-red-500">{{ form.username.errors|striptags }}</small>
+                </div>
+                <!-- First Name -->
+                <div>
+                    <label for="id_first_name" class="form-label">First Name</label>
+                    <input type="text"
+                           name="first_name"
+                           id="id_first_name"
+                           placeholder="Enter your first name"
+                           class="form-input"
+                           required>
+                    <small class="text-red-500">{{ form.first_name.errors|striptags }}</small>
+                </div>
+                <!-- Last Name -->
+                <div>
+                    <label for="id_last_name" class="form-label">Last Name</label>
+                    <input type="text"
+                           name="last_name"
+                           id="id_last_name"
+                           placeholder="Enter your last name"
+                           class="form-input"
+                           required>
+                    <small class="text-red-500">{{ form.username.errors|striptags }}</small>
+                </div>
+                <!-- Email -->
+                <div class="mt-4">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email"
+                           name="email"
+                           id="email"
+                           placeholder="Enter your email"
+                           required
+                           class="form-input">
+                    <small class="text-red-500">{{ form.email.errors|striptags }}</small>
+                </div>
+                <!-- Role -->
+                {% comment %} <div class="mt-4">
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role" id="role" required class="form-input">
+                        <option value="CA">Candidate</option>
+                        <option value="RE">Recruiter</option>
+                    </select>
+                </div> {% endcomment %}
+                <!-- Role -->
+                <div class="mt-4 flex flex-col">
+                    <label for="role" class="form-label">Role</label>
+                    <div class="flex justify-around items-center form-input">
+                        <div class="flex items-center me-4">
+                            <input id="teal-radio"
+                                   type="radio"
+                                   value="job_seeker"
+                                   name="role"
+                                   class="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="teal-radio"
+                                   class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Job_Seeker</label>
+                        </div>
+                        <div class="flex items-center me-4">
+                            <input id="teal-radio"
+                                   type="radio"
+                                   value="recruiter"
+                                   name="role"
+                                   class="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="teal-radio"
+                                   class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Recruiter</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile Image -->
+                <div class="mt-4">
+                    <label for="id_profile_img" class="form-label">Profile Image</label>
+                    <input type="file" name="profile_img" id="id_profile_img" class="form-input">
+                </div>
+                <!-- Password -->
+                <div class="mt-4">
+                    <label for="password1" class="form-label">Password</label>
+                    <input type="password"
+                           name="password1"
+                           id="password"
+                           placeholder="Enter your password"
+                           required
+                           class="form-input">
+                    <small class="text-red-500">{{ form.password1.errors|striptags }}</small>
+                </div>
+                <!-- Confirm Password -->
+                <div class="mt-4">
+                    <label for="password2" class="form-label">Confirm Password</label>
+                    <input type="password"
+                           name="password2"
+                           id="confirm-password"
+                           placeholder="Confirm your password"
+                           required
+                           class="form-input">
+                    <p id="error-message" class="text-red-500 text-sm mt-1 hidden">Passwords do not match.</p>
+                    <small class="text-red-500">{{ form.password2.errors|striptags }}</small>
+                </div>
+                <!-- Signup Button -->
+                <button type="submit" class="form-button">Register Now</button>
+                <!-- Already have an account? -->
+                <div class="text-center mt-4 text-gray-600">
+                    Already have an account? <a href="{% url 'login' %}" class="text-primary-green hover:underline">Login</a>
+                </div>
+            </form>
+        </div>
+        <!-- JavaScript for Password Validation -->
+        <script>
+        function validatePassword() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            const errorMessage = document.getElementById("error-message");
+
+            if (password !== confirmPassword) {
+                errorMessage.classList.remove("hidden");
+                return false;
+            } else {
+                errorMessage.classList.add("hidden");
+                return true;
+            }
+        }
+        </script>
+    </section>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}

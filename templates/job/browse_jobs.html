@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+    <style>
+    .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 1rem;
+    }
+    </style>
+{% endblock styles %}
+{% block title %}
+    Jobs - Explore
+    Opportunities
+{% endblock title %}
+{% block header %}
+    {% block hero_section_highlight_content %}
+        <!-- Hero Section -->
+        <section class="relative bg-gray-100  px-4 sm:px-6 lg:px-8 py-20 lg:py-18 text-center">
+            <!-- Main Heading -->
+            <h1 class="text-7xl sm:text-7xl font-bold text-gray-800 tracking-wide max-w-4xl t mx-auto">
+                Find Your <span class="relative text-primary-green">
+                <span>Dream Job</span>
+                <svg class="absolute right-0 top-12 w-full h-1/2 fill-primary-green/50"
+                     viewBox="0 0 418 42"
+                     aria-hidden="true">
+                    <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934C1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z">
+                    </path>
+                </svg>
+            </span>
+        </h1>
+        <!-- Subheading -->
+        <p class="mt-8 text-lg tracking-tight text-gray-600 max-w-2xl mx-auto">
+            Discover career opportunities with top companies like HubSpot, Nike, and
+            Dropbox.
+        </p>
+        {% if not user.is_authenticated %}
+            <!-- Action Buttons -->
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <a href="{% url 'register' %}"
+                   class="bg-green text-primary hover:bg-darkgreen btn-hero-section">Get
+                Started</a>
+                <a href=""
+                   class=" text-primary border border-primary hover:bg-primary hover:text-secondary btn-hero-section">Learn
+                More</a>
+            </div>
+        {% endif %}
+        <!-- Job Search Bar -->
+        {% include "partials/search_bar.html" %}
+    </section>
+{% endblock hero_section_highlight_content %}
+{% endblock header %}
+{% block content %}
+    <section class="lg:flex">
+        <!-- Mobile Filter Button -->
+        <button type="button"
+                class="p-2 m-4 lg:hidden text-gray-500 hover:bg-gray-100 rounded-lg"
+                aria-controls="filters-sidebar"
+                aria-expanded="false"
+                data-drawer-target="filters-sidebar">
+            <span class="sr-only">Open filters</span>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+        </button>
+        <!-- Filters Sidebar -->
+        <aside id="filters-sidebar"
+               class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 lg:static lg:w-72 lg:h-auto">
+            <div class="p-6 bg-white border-r border-gray-100 lg:pt-8">{% include "job/jobs_filters.html" %}</div>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 p-4 lg:p-8">
+            <div class="border border-gray-100 rounded-xl bg-white">
+                <div class="p-6 border-b border-gray-100">
+                    <h2 class="text-2xl font-semibold text-gray-900">Job Listings</h2>
+                </div>
+                {% include "job/job_card.html" %}
+            </div>
+        </main>
+    </section>
+{% endblock content %}
+{% block page_level_script %}
+    <script>
+    document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+        const params = new URLSearchParams();
+        ['employment-type', 'job-category', 'job-level', 'salary-range'].forEach(name => {
+        document.querySelectorAll(`input[name="${name}"]:checked`).forEach(cb => {
+        params.append(name, cb.value);
+        });
+        });
+        window.location.href = `/jobs/?${params.toString()}`;
+        });
+        });
+    </script>
+{% endblock page_level_script %}

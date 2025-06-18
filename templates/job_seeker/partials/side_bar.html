@@ -1,0 +1,65 @@
+<!-- Sidebar Content -->
+<section class="flex flex-col gap-y-2 px-2 py-8 h-full">
+    <!-- Logo Section -->
+    <a href="{% url 'home' %}"
+       class="text-gray-500 text-3xl font-bold mb-4 mx-3">JobLens</a>
+    <!-- Main Navigation Links -->
+    <nav class="space-y-1">
+        <a href="{% url 'job_seeker_dashboard' %}"
+           class="sidebar-item {% if page_name == 'Dashboard' %} item-active {% else %} item-inactive {% endif %} transition">
+            <i class="ri-home-2-line"></i>
+            <p>Dashboard</p>
+        </a>
+        <a href="#"
+           class="sidebar-item {% if page_name == 'Messages' %} item-active {% else %} item-inactive {% endif %} transition">
+            <i class="ri-message-2-line"></i>
+            <p>Messages</p>
+        </a>
+        <a href="{% url 'job_seeker_applications' %}"
+           class="sidebar-item {% if page_name == 'My Applications' %} item-active {% else %} item-inactive {% endif %} transition">
+            <i class="ri-file-reduce-line"></i>
+            <p>My Applications</p>
+        </a>
+        <a href="#"
+           class="sidebar-item {% if page_name == 'Browse Companies' %} item-active {% else %} item-inactive {% endif %} transition">
+            <i class="ri-building-line"></i>
+            <p>Browse Companies</p>
+        </a>
+        <a href="{% url 'job_seeker_profile' %}"
+           class="sidebar-item {% if page_name == 'My Profile' %} item-active {% else %} item-inactive {% endif %} transition">
+            <i class="ri-user-line"></i>
+            <p>My public profile</p>
+        </a>
+    </nav>
+    <!-- Divider -->
+    <hr class="border-gray-300 border-1" />
+    <p class="text-lg font-medium text-gray-500">SETTINGS</p>
+    <!-- Settings Links -->
+    <nav class="space-y-1">
+        <a href="{% url 'job_seeker_profile_settings' %}"
+           class="sidebar-item {% if page_name == 'Settings' %} item-active {% else %} item-inactive {% endif %} transition">
+            <i class="ri-settings-3-line"></i>
+            <p>Settings</p>
+        </a>
+        <a href="#"
+           class="sidebar-item {% if page_name == 'Help Center' %} item-active {% else %} item-inactive {% endif %} transition">
+            <i class="ri-question-line"></i>
+            <p>Help Center</p>
+        </a>
+    </nav>
+    <!-- logout -->
+    <div class="flex items-start pl-1 gap-x-3 pb-4 text-gray-500">
+        <div class="w-14 h-14 rounded-full bg-blue-100 overflow-hidden object-cover">
+            <img src="{{ user.profile_img.url }}" alt="" />
+        </div>
+        <div>
+            <h3 class="text-gray-700 capitalize text-xl font-medium">{{ user.username }}</h3>
+            <p>{{ user.email }}</p>
+            <a href="{% url 'logout' %}"
+               class="flex gap-x-1 items-center text-md text-red-500 hover:text-red-600 transition">
+                <i class="ri-logout-circle-r-line"></i>
+                <p>Logout</p>
+            </a>
+        </div>
+    </div>
+</section>

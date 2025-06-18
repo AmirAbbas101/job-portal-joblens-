@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {{ company.company_name }}
+{% endblock title %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+    <section class="relative z-10 py-12 px-4 sm:px-6 lg:px-8 dark:from-gray-800 dark:to-gray-900">
+        <div class="max-w-6xl mx-auto">
+            <!-- Card -->
+            <div class="transition-all duration-300">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <!-- Company Logo + Name -->
+                    <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                        {% if company.company_logo %}
+                            <img src="{{ company.company_logo.url }}"
+                                 alt="{{ company.company_name }} Logo"
+                                 class="w-28 h-28 object-cover rounded-full shadow-md border-4 border-white dark:border-gray-700 mb-4" />
+                        {% else %}
+                            <div class="w-28 h-28 flex items-center justify-center bg-blue-200 dark:bg-gray-700 text-white rounded-full mb-4 text-3xl font-bold">
+                                {{ company.company_name|slice:":2" }}
+                            </div>
+                        {% endif %}
+                        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">{{ company.company_name }}</h1>
+                        <p class="text-sm text-blue-600 dark:text-blue-300">{{ company.industry }}</p>
+                        {% if company.established_year %}
+                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Since {{ company.established_year }}</p>
+                        {% endif %}
+                    </div>
+                    <!-- Contact & Quick Info -->
+                    <div class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                        {% if company.company_email %}
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-envelope text-blue-500"></i>
+                                <span>{{ company.company_email }}</span>
+                            </div>
+                        {% endif %}
+                        {% if company.company_phone %}
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-phone-alt text-green-500"></i>
+                                <span>{{ company.company_phone }}</span>
+                            </div>
+                        {% endif %}
+                        {% if company.company_website %}
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-globe text-purple-500"></i>
+                                <a href="{{ company.company_website }}"
+                                   target="_blank"
+                                   class="underline hover:text-blue-600 transition">{{ company.company_website }}</a>
+                            </div>
+                        {% endif %}
+                        {% if company.company_size %}
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-users text-yellow-500"></i>
+                                <span>{{ company.company_size }} employees</span>
+                            </div>
+                        {% endif %}
+                        {% if company.contact_person %}
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-user text-pink-500"></i>
+                                <span>{{ company.contact_person }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <!-- Address -->
+                    {% if company.company_address %}
+                        <div class="text-sm text-gray-700 dark:text-gray-300">
+                            <h3 class="text-base font-semibold mb-2 text-gray-900 dark:text-white">📍 Address</h3>
+                            <p class="whitespace-pre-line leading-relaxed">{{ company.company_address }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- Description -->
+                {% if company.company_description %}
+                    <div class="mt-8 border-t pt-6 border-gray-200 dark:border-gray-700">
+                        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">About the Company</h2>
+                        <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">{{ company.company_description }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Jobs Posted Section -->
+        <section class="mt-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Jobs Posted by This Company</h2>
+                <!-- Job Cards Grid -->
+                <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                    <!-- Job Card 1 -->
+                    {% for job in jobs %}
+                        {% include "partials/job_card.html" %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </section>
+{% endblock content %}

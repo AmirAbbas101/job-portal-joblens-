@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Post New Job
+{% endblock title %}
+{% block content %}
+    <section class="py-12 px-6 lg:px-32">
+        {% include "company/post-job-form.html" %}
+    </section>
+{% endblock content %}

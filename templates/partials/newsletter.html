@@ -1,0 +1,72 @@
+<!-- Newsletter Section -->
+<section class="bg-gray-800 py-12 mt-16">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Stay Updated with Our Latest Job Posts</h2>
+        <p class="text-gray-400 mb-8">
+            Sign up for our newsletter and get the latest job openings and news directly to your inbox.
+        </p>
+        <!-- Newsletter Form -->
+        <form id="newsletter-form"
+              class="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <input type="email"
+                   name="email"
+                   id="email"
+                   placeholder="Enter your email"
+                   class="px-4 py-3 sm:py-2 w-full sm:w-80 rounded-lg border border-gray-600 text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary-green transition ease-in-out duration-300"
+                   aria-label="Email address"
+                   required>
+            <button type="submit"
+                    class="w-full sm:w-auto px-6 py-3 sm:py-2 bg-primary-green text-white rounded-lg hover:bg-secondary-green focus:outline-none focus:ring-2 focus:ring-secondary-green transition ease-in-out duration-300">
+                Subscribe
+            </button>
+        </form>
+        <!-- Message Box -->
+        <div class="mt-4 text-sm font-medium hidden" id="response-message"></div>
+    </div>
+</section>
+<!-- Script to Connect with Django Backend -->
+<script>
+    const form = document.getElementById("newsletter-form");
+    const emailInput = document.getElementById("email");
+    const messageBox = document.getElementById("response-message");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value;
+
+        try {
+            const response = await fetch("/newsletter/subscribe/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: email })
+            });
+
+            const result = await response.json();
+
+            messageBox.classList.remove("hidden", "text-green-500", "text-yellow-400", "text-red-500");
+
+            if (result.success) {
+                messageBox.textContent = result.message;
+                messageBox.classList.add("text-green-500");
+                emailInput.value = "";
+            } else {
+                messageBox.textContent = result.message;
+                messageBox.classList.add("text-yellow-400");
+            }
+
+        } catch (error) {
+            messageBox.classList.remove("hidden", "text-green-500", "text-yellow-400");
+            messageBox.textContent = "Something went wrong. Please try again.";
+            messageBox.classList.add("text-red-500");
+        }
+
+        // Auto-hide after 5 seconds (5000 milliseconds)
+        setTimeout(() => {
+            messageBox.classList.add("hidden");
+            messageBox.textContent = "";
+        }, 5000);
+    });
+</script>

@@ -1,0 +1,38 @@
+{% extends "job_seeker/base.html" %}
+{% load static %}
+{% block title %}
+    Settings
+{% endblock title %}
+{% block main %}
+    <section class="flex flex-col gap-y-6 p-6">
+        <!-- Header Section -->
+        <div>
+            <h2 class="section-title">
+                Keep it up, <span class="capitalize">{{ user.username }}</span>
+            </h2>
+            <p class="section-description">Here is job applications status from July 19 - July 25.</p>
+        </div>
+        <!-- Nav Section -->
+        <section class="border-b-[1px] border-gray-300 flex gap-x-8">
+            <h3 id="btn-my-profile"
+                class="text-sm font-bold pb-2 cursor-pointer border-b-[4px] border-white text-gray-500 hover:text-gray-700 hover:border-primary-green active:text-gray-700 active:border-primary-green active">
+                All(45)
+            </h3>
+            <h3 id="btn-login-details"
+                class="text-sm font-bold pb-2 cursor-pointer border-b-[4px] border-white text-gray-500 hover:text-gray-700 hover:border-primary-green active:text-gray-700 active:border-primary-green">
+                In Review (34)
+            </h3>
+            <h3 id="btn-notifications"
+                class="text-sm font-bold pb-2 cursor-pointer border-b-[4px] border-white text-gray-500 hover:text-gray-700 hover:border-primary-green active:text-gray-700 active:border-primary-green">
+                Assesment (5)
+            </h3>
+            <h3 id="btn-notifications"
+                class="text-sm font-bold pb-2 cursor-pointer border-b-[4px] border-white text-gray-500 hover:text-gray-700 hover:border-primary-green active:text-gray-700 active:border-primary-green">
+                Offered (2)
+            </h3>
+            <h3 id="btn-notifications"
+                class="text-sm font-bold pb-2 cursor-pointer border-b-[4px] border-white text-gray-500 hover:text-gray-700 hover:border-primary-green active:text-gray-700 active:border-primary-green">
+                Hired (1)
+            </section>
+        </section>
+    {% endblock main %}

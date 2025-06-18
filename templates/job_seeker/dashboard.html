@@ -1,0 +1,126 @@
+{% extends "job_seeker/base.html" %}
+{% load static %}
+{% block title %}
+    Dashboard
+{% endblock title %}
+{% block main %}
+    <section class="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
+        <!-- Header Section -->
+        <div class="space-y-2">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+                Good morning, <span class="capitalize text-primary-600">{{ user.username }}</span>
+            </h1>
+            <p class="text-gray-600">
+                Here's your job search activity from {{ current_date|date:"F j" }} - {{ one_week_later|date:"F j" }}
+            </p>
+        </div>
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Total Applications -->
+            <a href="{% url 'job_seeker_applications' %}"
+               class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Total Applied</p>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ total_applications }}</h3>
+                    </div>
+                    <div class="p-3 rounded-lg bg-blue-50 text-blue-600">
+                        <i class="ri-send-plane-fill text-2xl"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">
+                    <span class="text-green-600 font-medium">↑ {{ percentage_change_applications }}%</span> from last week
+                </p>
+            </a>
+            <!-- Interviews -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Interviews</p>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ interviews_scheduled }}</h3>
+                    </div>
+                    <div class="p-3 rounded-lg bg-purple-50 text-purple-600">
+                        <i class="ri-calendar-check-fill text-2xl"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">
+                    <span class="text-green-600 font-medium">↑ {{ interviews_scheduled }}</span> scheduled
+                </p>
+            </div>
+            <!-- Offers -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Offers Received</p>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ offers_received }}</h3>
+                    </div>
+                    <div class="p-3 rounded-lg bg-green-50 text-green-600">
+                        <i class="ri-medal-fill text-2xl"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">
+                    <span class="text-green-600 font-medium">{{ new_offers_this_week }}</span> new this week
+                </p>
+            </div>
+            <!-- Rejections -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Rejections</p>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ rejections }}</h3>
+                    </div>
+                    <div class="p-3 rounded-lg bg-red-50 text-red-600">
+                        <i class="ri-close-circle-fill text-2xl"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">
+                    <span class="text-gray-600">{{ rejection_percentage }}%</span> of applications
+                </p>
+            </div>
+        </div>
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Application Status Chart -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-lg font-semibold text-gray-900">Application Status</h2>
+                    <select class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-primary-500">
+                        <option>Last 7 days</option>
+                        <option>Last 30 days</option>
+                        <option>Last 90 days</option>
+                    </select>
+                </div>
+                <div class="h-64">
+                    <!-- Chart placeholder -->
+                    <div class="w-full h-full bg-gray-50 rounded-lg flex items-center justify-center text-gray-400">
+                        <div class="text-center">
+                            <i class="ri-bar-chart-2-line text-4xl mb-2"></i>
+                            <p>Application status chart (coming soon)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Upcoming Interviews -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Upcoming Interviews</h2>
+                {% if upcoming_interviews %}
+                    <ul class="space-y-4">
+                        {% for interview in upcoming_interviews %}
+                            <li class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">{{ interview.job.title }}</p>
+                                    <p class="text-xs text-gray-500">
+                                        {{ interview.interview_date|date:"M j" }} at {{ interview.interview_time|time:"g:i A" }}
+                                    </p>
+                                </div>
+                                <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-700">Interview</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-sm text-gray-500">No upcoming interviews.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock main %}

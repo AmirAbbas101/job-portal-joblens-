@@ -1,0 +1,151 @@
+<section id="my-profile-settings"
+         class="max-w-4xl space-y-8 divide-y divide-gray-200">
+    <!-- Basic Information Section -->
+    <div class="pb-8 space-y-4">
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-900">Basic Information</h2>
+            <p class="mt-1 text-sm text-gray-500">This is your personal information that you can update anytime.</p>
+        </div>
+        <!-- Profile Photo Upload -->
+        <div class="lg:flex lg:gap-12 lg:items-start pt-8">
+            <div class="lg:w-64 mb-6 lg:mb-0">
+                <h3 class="text-lg font-medium text-gray-900">Profile Photo</h3>
+                <p class="mt-2 text-sm text-gray-500">This image will be shown publicly as your profile picture</p>
+            </div>
+            <div class="flex-1 flex gap-6 items-center">
+                <div class="relative">
+                    <img src="{{ user.profile_img.url }}"
+                         alt="{{ user.username }}"
+                         class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg">
+                    <div class="absolute inset-0 rounded-full ring-1 ring-inset ring-gray-900/10"></div>
+                </div>
+                <div class="flex-1">
+                    <label class="group relative flex flex-col items-center justify-center h-32 cursor-pointer rounded-lg border-2 border-dashed border-gray-300 hover:border-primary-500 bg-white hover:bg-gray-50 transition-colors">
+                        <div class="flex flex-col items-center p-4 text-center">
+                            <i class="ri-image-line text-2xl text-gray-400 group-hover:text-primary-600 mb-2"></i>
+                            <p class="text-sm text-gray-600 group-hover:text-gray-900">
+                                <span class="font-medium text-primary-600 group-hover:text-primary-700">Click to upload</span>
+                                <span class="text-gray-500">or drag and drop</span>
+                            </p>
+                            <p class="text-xs text-gray-400 mt-1">SVG, PNG, JPG (MAX. 2MB)</p>
+                        </div>
+                        <input type="file"
+                               id="dropzone-file"
+                               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                               accept="image/*"
+                               aria-labelledby="file-upload-label">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Personal Details Form -->
+    <div class="pt-8">
+        <div class="lg:flex lg:gap-12">
+            <div class="lg:w-64 mb-6 lg:mb-0">
+                <h3 class="text-lg font-medium text-gray-900">Personal Details</h3>
+            </div>
+            <form method="POST" class="flex-1 space-y-6">
+                {% csrf_token %}
+                <div class="space-y-6">
+                    <!-- Full Name -->
+                    <div>
+                        <label for="full_name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text"
+                               id="full_name"
+                               name="full_name"
+                               placeholder="Amir Abbas"
+                               required
+                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-400">
+                    </div>
+                    <!-- Contact Info Grid -->
+                    <div class="grid gap-6 sm:grid-cols-2">
+                        <div>
+                            <label for="phone_number"
+                                   class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                            <input type="tel"
+                                   id="phone_number"
+                                   name="phone_number"
+                                   placeholder="+92 000 000 0000"
+                                   pattern="^\+?[0-9\s-]{7,15}$"
+                                   required
+                                   class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-400">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   placeholder="amir@gmail.com"
+                                   required
+                                   class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-400">
+                        </div>
+                    </div>
+                    <!-- Additional Info Grid -->
+                    <div class="grid gap-6 sm:grid-cols-2">
+                        <div>
+                            <label for="date_of_birth"
+                                   class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                            <input type="date"
+                                   id="date_of_birth"
+                                   name="date_of_birth"
+                                   required
+                                   class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-700">
+                        </div>
+                        <div>
+                            <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                            <select id="gender"
+                                    name="gender"
+                                    required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-gray-200">
+                    <button type="submit"
+                            class="w-full sm:w-auto px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                        Update Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Account Type Section -->
+    <div class="pt-8">
+        <div class="lg:flex lg:gap-12">
+            <div class="lg:w-64 mb-6 lg:mb-0">
+                <h3 class="text-lg font-medium text-gray-900">Account Type</h3>
+                <p class="mt-2 text-sm text-gray-500">You can update your account type</p>
+            </div>
+            <fieldset class="flex-1 space-y-4">
+                <legend class="sr-only">Account type selection</legend>
+                <label class="relative flex items-start p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-primary-500 has-[:checked]:border-primary-500 has-[:checked]:ring-1 has-[:checked]:ring-primary-500">
+                    <input type="radio"
+                           id="job-seeker"
+                           name="user-type"
+                           class="h-4 w-4 mt-0.5 border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer">
+                    <div class="ml-3">
+                        <span class="block text-sm font-medium text-gray-900">Job Seeker</span>
+                        <span class="block text-sm text-gray-500 mt-1">Looking for a job</span>
+                    </div>
+                </label>
+                <label class="relative flex items-start p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-primary-500 has-[:checked]:border-primary-500 has-[:checked]:ring-1 has-[:checked]:ring-primary-500">
+                    <input type="radio"
+                           id="employer"
+                           name="user-type"
+                           checked
+                           class="h-4 w-4 mt-0.5 border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer">
+                    <div class="ml-3">
+                        <span class="block text-sm font-medium text-gray-900">Employer</span>
+                        <span class="block text-sm text-gray-500 mt-1">Hiring, sourcing candidates, or posting jobs</span>
+                    </div>
+                </label>
+            </fieldset>
+        </div>
+    </div>
+</section>

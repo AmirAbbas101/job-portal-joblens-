@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Login
+{% endblock title %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+    <section class="bg-gray-100 flex justify-center items-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <h2 class="text-2xl font-bold text-gray-800 text-center">Login</h2>
+            <p class="font-bold text-gray-800 text-center">
+                Welcome to <a href="#"
+    class="text-primary-green hover:text-secondary-green dark:text-primary-green">JobLens</a>
+            </p>
+            {% comment %}Errors{% endcomment %}
+            {% if messages %}
+                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                    {% for message in messages %}
+                        <li class="{% if message.tags == 'error' %} text-red-500{% elif message.tags == 'success' %} text-green-500{% endif %}">
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <!-- Sign-In Form -->
+            <form class="mt-6" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <!-- Google Signup Button -->
+                <button type="button"
+                        class="w-full flex items-center rounded-lg justify-center border border-primary-green py-2 hover:bg-gray-100 transition">
+                    <img src="https://www.svgrepo.com/show/355037/google.svg"
+                         alt="Google Logo"
+                         class="w-5 h-5 mr-2">
+                    Continue with Google
+                </button>
+                <!-- Divider -->
+                <div class="text-center text-gray-500 my-4">OR</div>
+                <!-- Username or Email -->
+                <div>
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text"
+                           name="username"
+                           id="username"
+                           placeholder="Enter your email or username"
+                           class="form-input">
+                </div>
+                <!-- Password -->
+                <div class="mt-4">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password"
+                           name="password"
+                           id="password"
+                           placeholder="Enter your password"
+                           class="form-input">
+                </div>
+                <!-- Login Button -->
+                <button type="submit"
+                        class="bg-primary-green dark:bg-primary-green form-button">Login</button>
+                <!-- Forgot Password & Signup -->
+                <div class="text-center mt-4 text-gray-600">
+                    <a href="{% url 'password_reset' %}"
+                       class="text-primary-green hover:underline dark:text-primary-green">Forgot Password?</a> |
+                    <a href="{% url 'register' %}"
+                       class="text-primary-green hover:underline dark:text-primary-green">Create an Account</a>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}

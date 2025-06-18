@@ -1,0 +1,58 @@
+<section id="login-details-settings" class="hidden">
+    <!-- Section Component -->
+    <div class="section border-gray-300 flex-col">
+        <h2 class="section-title">Basic Information</h2>
+        <p class="section-description">This is login information that you can update anytime.</p>
+    </div>
+
+    <!-- Update Email -->
+    <div class="section border-gray-300 flex-col lg:flex-row lg:gap-x-24">
+        <div class="w-72">
+            <h2 class="section-title">Update Email</h2>
+            <p class="section-description">Update your email address to make sure it is safe.</p>
+        </div>
+        <div class="min-w-[80%] lg:min-w-[50%] flex-grow lg:mx-8">
+            <div class="lg:mx-8 ">
+                <p class=" text-gray-700 text-base font-medium">{{user.email}}</p>
+                <p class="section-description">Your email address is verified</p>
+            </div>
+            <form method="POST" class="form lg:mx-8 space-y-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your new email" class="form-input">
+                </div>
+                <button type="submit" class="submit-button">Update Email</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reset Password -->
+    <div class="section border-gray-300 flex-col lg:flex-row lg:gap-x-24">
+        <div class="w-72">
+            <h2 class="section-title">Reset Password</h2>
+            <p class="section-description">Manage your password to make sure it is safe.</p>
+        </div>
+
+        <div class="min-w-[80%] lg:min-w-[50%] flex-grow lg:mx-8">
+            <form method="POST" class="form lg:mx-8 space-y-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="password" class="form-label">Old Password</label>
+                    <input type="password" name="password" id="old-passwrod" placeholder="Enter your old password"
+                        class="form-input" required>
+                    <p class="section-description">Minimum 8 characters</p>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">New Password</label>
+                    <input type="password" name="password" id="new-passwrod" placeholder="Enter your new password"
+                        class="form-input" required>
+                    <p class="section-description">Minimum 8 characters</p>
+                </div>
+
+                <button type="submit" class="submit-button">Update Email</button>
+
+            </form>
+        </div>
+    </div>
+</section>

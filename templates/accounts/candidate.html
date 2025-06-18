@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Complete Profile
+{% endblock title %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+    <section class="bg-white py-8 px-4">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-gray-50 shadow rounded-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Edit Profile Settings</h2>
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="text"
+                               id="phone"
+                               name="phone"
+                               value="{{ candidate.phone }}"
+                               placeholder="+1 123-456-7890"
+                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <!-- Address -->
+                    <div>
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-700">Address</label>
+                        <textarea id="address"
+                                  name="address"
+                                  rows="3"
+                                  placeholder="123 Main St, City, Country"
+                                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">{{ candidate.address }}</textarea>
+                    </div>
+                    <!-- Skills -->
+                    <div>
+                        <label for="skills" class="block mb-2 text-sm font-medium text-gray-700">Skills</label>
+                        <input type="text"
+                               id="skills"
+                               name="skills"
+                               value="{{ candidate.skills }}"
+                               placeholder="e.g., Python, Django, React"
+                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <!-- Education -->
+                    <div>
+                        <label for="education" class="block mb-2 text-sm font-medium text-gray-700">Education</label>
+                        <textarea id="education"
+                                  name="education"
+                                  rows="3"
+                                  placeholder="Degree, Institution, Year"
+                                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">{{ candidate.education }}</textarea>
+                    </div>
+                    <!-- Experience -->
+                    <div>
+                        <label for="experience" class="block mb-2 text-sm font-medium text-gray-700">Experience</label>
+                        <textarea id="experience"
+                                  name="experience"
+                                  rows="3"
+                                  placeholder="Previous roles, companies, durations"
+                                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">{{ candidate.experience }}</textarea>
+                    </div>
+                    <!-- Resume File -->
+                    <div>
+                        <label for="resume_file"
+                               class="block mb-2 text-sm font-medium text-gray-700">Resume (PDF)</label>
+                        <input type="file"
+                               id="resume_file"
+                               name="resume_file"
+                               accept=".pdf"
+                               class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none">
+                        {% if candidate.resume_file %}
+                            <p class="mt-2 text-sm text-gray-600">
+                                Current resume:
+                                <a href="{{ candidate.resume_file.url }}"
+                                   class="text-blue-600 hover:underline">View</a>
+                            </p>
+                        {% endif %}
+                    </div>
+                    <!-- Save Button -->
+                    <div class="flex justify-end">
+                        <button type="submit"
+                                class="w-full sm:w-auto text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}

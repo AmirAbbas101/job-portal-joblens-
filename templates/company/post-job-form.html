@@ -1,0 +1,157 @@
+<form method="post"
+      class="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl mx-auto"
+      action="{% url 'post_job' request.user.id %}">
+    {% csrf_token %}
+    <div class="mb-6 text-center">
+        <h2 class="text-2xl font-bold text-gray-800">Post a Job</h2>
+        <p class="text-gray-600">Fill in the details below to post a new job listing.</p>
+    </div>
+    <!-- Job Details Section -->
+    <section class="mb-6">
+        <h3 class="text-xl font-semibold mb-4">Basic Job Information</h3>
+        <hr class="my-6 border-gray-300">
+        <div class="space-y-4">
+            <div>
+                <label for="job-title" class="block text-gray-700 font-medium">Job Title</label>
+                <input type="text"
+                       id="job-title"
+                       name="job-title"
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                       placeholder="Enter job title"
+                       required
+                       autocomplete="off" />
+            </div>
+            <div>
+                <label for="job-description" class="block text-gray-700 font-medium">Job Description</label>
+                <textarea id="job-description"
+                          name="job-description"
+                          rows="4"
+                          class="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                          placeholder="Enter job description..."></textarea>
+            </div>
+            <div>
+                <label for="job-type" class="block text-gray-700 font-medium">Job Type</label>
+                <select id="job-type"
+                        name="job-type"
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <option value="Full Time">Full-Time</option>
+                    <option value="Part Time">Part-Time</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Freelance">Freelance</option>
+                </select>
+            </div>
+            <div>
+                <label for="location" class="block text-gray-700 font-medium">Location</label>
+                <input type="text"
+                       id="location"
+                       name="location"
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                       placeholder="Enter job location"
+                       required
+                       autocomplete="off" />
+            </div>
+        </div>
+    </section>
+    <!-- Job Requirements & Details -->
+    <section class="mb-6">
+        <h3 class="text-xl font-semibold mb-4">Job Requirements & Details</h3>
+        <hr class="my-6 border-gray-300">
+        <div class="space-y-4">
+            <div>
+                <label for="salary-range" class="block text-gray-700 font-medium">Salary Range</label>
+                <input type="text"
+                       id="salary-range"
+                       name="salary-range"
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                       placeholder="e.g., 50k-80k"
+                       required
+                       autocomplete="off" />
+            </div>
+            <div>
+                <label for="experience-level" class="block text-gray-700 font-medium">Experience Level</label>
+                <select id="experience-level"
+                        name="experience-level"
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <option value="Entry Level">Entry-Level</option>
+                    <option value="Mid Level">Mid-Level</option>
+                    <option value="Senior Level">Senior-Level</option>
+                </select>
+            </div>
+            <div>
+                <label for="skills-required" class="block text-gray-700 font-medium">Skills Required</label>
+                <textarea id="skills-required"
+                          name="skills-required"
+                          rows="4"
+                          class="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                          placeholder="List required skills..."></textarea>
+            </div>
+            <div>
+                <label for="application-deadline" class="block text-gray-700 font-medium">Application Deadline</label>
+                <input type="date"
+                       id="application-deadline"
+                       name="application-deadline"
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none" />
+            </div>
+            <div>
+                <label for="job-category" class="block text-gray-700 font-medium">Job Category</label>
+                <input type="text"
+                       id="job-category"
+                       name="job-category"
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                       placeholder="Enter job category"
+                       required
+                       autocomplete="off" />
+            </div>
+        </div>
+    </section>
+    <!-- Additional Information -->
+    <section class="mb-6">
+        <h3 class="text-xl font-semibold mb-4">Additional Information</h3>
+        <hr class="my-6 border-gray-300">
+        <div class="space-y-4">
+            <div>
+                <label for="responsibilities" class="block text-gray-700 font-medium">Responsibilities</label>
+                <textarea id="responsibilities"
+                          name="responsibilities"
+                          rows="4"
+                          class="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                          placeholder="Enter job responsibilities..."></textarea>
+            </div>
+            <div>
+                <label for="requirements_id" class="block text-gray-700 font-medium">Requirements</label>
+                <textarea id="requirements"
+                          name="requirements"
+                          rows="4"
+                          class="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                          placeholder="Enter job requirements..."></textarea>
+            </div>
+            <div>
+                <label for="positions" class="block text-gray-700 font-medium">Available Positions</label>
+                <input type="number"
+                       id="positions"
+                       name="positions"
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                       placeholder="Enter number of positions"
+                       required
+                       autocomplete="off" />
+            </div>
+            <div>
+                <label for="is-featured" class="block text-gray-700 font-medium">Featured Job</label>
+                <select id="is-featured"
+                        name="is-featured"
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                    <option value="False">No</option>
+                    <option value="True">Yes</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    <!-- Submit Button -->
+    <div class="flex justify-center mt-6">
+        <button type="submit"
+                class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-300">
+            Submit Job
+        </button>
+    </div>
+</form>

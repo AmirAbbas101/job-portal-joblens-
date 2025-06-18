@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {{ company.company_name }}
+{% endblock title %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+    <div class="container w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+        <div class="text-center mb-6">
+            {% if is_new %}
+                <h1 class="text-2xl font-bold text-gray-800">Create Company Profile</h1>
+            {% else %}
+                <h1 class="text-2xl font-bold text-gray-800">Edit Company Profile</h1>
+            {% endif %}
+            <p class="text-gray-600">Provide accurate details about your company to build a professional profile.</p>
+        </div>
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            <div>
+                <label for="company_name" class="block font-medium text-gray-700">Company Name</label>
+                <input type="text"
+                       id="company_name"
+                       name="company_name"
+                       value="{{ form.company_name.value|default:'' }}"
+                       required
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-green-600 focus:border-none">
+                {% if form.company_name.errors %}
+                    <p class="text-red-500 text-sm">{{ form.company_name.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="company_website" class="block font-medium text-gray-700">Company Website</label>
+                <input type="url"
+                       id="company_website"
+                       name="company_website"
+                       value="{{ form.company_website.value|default:'' }}"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">
+                {% if form.company_website.errors %}
+                    <p class="text-red-500 text-sm">{{ form.company_website.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="company_address" class="block font-medium text-gray-700">Company Address</label>
+                <textarea id="company_address"
+                          name="company_address"
+                          required
+                          class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">{{ form.company_address.value|default:'' }}</textarea>
+                {% if form.company_address.errors %}
+                    <p class="text-red-500 text-sm">{{ form.company_address.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="company_logo" class="block font-medium text-gray-700">Company Logo</label>
+                <input type="file"
+                       id="company_logo"
+                       name="company_logo"
+                       class="block file:bg-green-600 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                {% if form.company_logo.errors %}
+                    <p class="text-red-500 text-sm">{{ form.company_logo.errors|join:", " }}</p>
+                {% endif %}
+                {% if form.instance.company_logo %}
+                    <img src="{{ form.instance.company_logo.url }}"
+                         alt="Current Company Logo"
+                         class="mt-3 w-24 h-24 rounded-full shadow-lg">
+                {% endif %}
+            </div>
+            <div>
+                <label for="company_description" class="block font-medium text-gray-700">Company Description</label>
+                <textarea id="company_description"
+                          name="company_description"
+                          class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">{{ form.company_description.value|default:'' }}</textarea>
+                {% if form.company_description.errors %}
+                    <p class="text-red-500 text-sm">{{ form.company_description.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="company_email" class="block font-medium text-gray-700">Company Email</label>
+                <input type="email"
+                       id="company_email"
+                       name="company_email"
+                       value="{{ form.company_email.value|default:'' }}"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">
+                {% if form.company_email.errors %}
+                    <p class="text-red-500 text-sm">{{ form.company_email.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="company_phone" class="block font-medium text-gray-700">Company Phone</label>
+                <input type="text"
+                       id="company_phone"
+                       name="company_phone"
+                       value="{{ form.company_phone.value|default:'' }}"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">
+                {% if form.company_phone.errors %}
+                    <p class="text-red-500 text-sm">{{ form.company_phone.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="contact_person" class="block font-medium text-gray-700">Contact Person</label>
+                <input type="text"
+                       id="contact_person"
+                       name="contact_person"
+                       value="{{ form.contact_person.value|default:'' }}"
+                       required
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">
+                {% if form.contact_person.errors %}
+                    <p class="text-red-500 text-sm">{{ form.contact_person.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="industry" class="block font-medium text-gray-700">Industry</label>
+                <input type="text"
+                       id="industry"
+                       name="industry"
+                       value="{{ form.industry.value|default:'' }}"
+                       required
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">
+                {% if form.industry.errors %}<p class="text-red-500 text-sm">{{ form.industry.errors|join:", " }}</p>{% endif %}
+            </div>
+            <div>
+                <label for="company_size" class="block font-medium text-gray-700">Company Size</label>
+                <input type="text"
+                       id="company_size"
+                       name="company_size"
+                       value="{{ form.company_size.value|default:'' }}"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">
+                {% if form.company_size.errors %}
+                    <p class="text-red-500 text-sm">{{ form.company_size.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label for="established_year" class="block font-medium text-gray-700">Established Year</label>
+                <input type="number"
+                       id="established_year"
+                       name="established_year"
+                       value="{{ form.established_year.value|default:'' }}"
+                       class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300">
+                {% if form.established_year.errors %}
+                    <p class="text-red-500 text-sm">{{ form.established_year.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+            <div class="flex justify-end">
+                <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+<form method="get" action="{% url 'job_list' %}">
+    <div class="mt-10 w-[90%] max-w-3xl mx-auto flex flex-col sm:flex-row rounded-full shadow-md overflow-hidden bg-white h-16 border-[6px] border-primary-green border-opacity-30">
+        <!-- Job Title Input -->
+        <div class="flex items-center flex-1 px-4 border-b sm:border-b-0 sm:border-r border-gray-200">
+            <i class="ri-search-line text-gray-400 text-xl"></i>
+            <input type="text"
+                   name="title"
+                   id="title"
+                   placeholder="Job title, keywords, or company"
+                   class="h-full w-full pl-2 text-gray-600 border-none placeholder-gray-400 focus:ring-0 transition-colors duration-300"
+                   aria-label="Job title" />
+        </div>
+        <!-- Location Dropdown -->
+        <div class="flex items-center flex-1 px-4 border-b sm:border-b-0 sm:border-r border-gray-200">
+            <i class="ri-map-pin-line text-gray-400 text-xl"></i>
+            <select name="location"
+                    id="location"
+                    class="h-full w-full pl-2 bg-white text-gray-600 border-none focus:ring-0 cursor-pointer transition-colors duration-300 appearance-none"
+                    aria-label="Location">
+                <option value="" disabled selected hidden>Select location</option>
+                <option value="lahore">Lahore</option>
+                <option value="faisalabad">Faisalabad</option>
+                <option value="rawalpindi">Rawalpindi</option>
+                <option value="multan">Multan</option>
+                <option value="islamabad">Islamabad</option>
+                <option value="karachi">Karachi</option>
+                <option value="peshawar">Peshawar</option>
+                <option value="quetta">Quetta</option>
+            </select>
+        </div>
+        <!-- Search Button -->
+        <button type="submit"
+                id="btn-find-job"
+                class="w-full sm:w-auto px-8 h-full bg-primary-green hover:bg-secondary-green text-white font-semibold transition-colors duration-300"
+                aria-label="Find Job">Find Job</button>
+    </div>
+</form>

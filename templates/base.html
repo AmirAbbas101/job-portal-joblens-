@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} Remix icons CDN {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.4.0/fonts/remixicon.css"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <title>
+      {% block title %}
+        JobLens
+      {% endblock title %}
+    </title>
+  </head>
+  <body class="bg-white min-h-screen flex flex-col">
+    {% block header_section %}
+      <header class="relative overflow-hidden">
+        {% block hero_section_intro_content %}
+        {% endblock hero_section_intro_content %}
+        {% comment %} Navbar {% endcomment %}
+        {% block navbar %}
+          {% include "partials/navbar.html" %}
+        {% endblock navbar %}
+        {% block hero_section_highlight_content %}
+        {% endblock hero_section_highlight_content %}
+      </header>
+    {% endblock header_section %}
+    {% block content %}
+    {% endblock content %}
+    {% block footer %}
+      {% include "partials/footer.html" %}
+    {% endblock footer %}
+    {% block page_level_script %}
+    {% endblock page_level_script %}
+    {% comment %} <script src="{% static 'js/script.js' %}"></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  </body>
+</html>

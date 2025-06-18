@@ -1,0 +1,54 @@
+<!-- Job Card Component -->
+<article class="relative overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200/10 transition-all hover:shadow-md"
+         aria-labelledby="featured-job-{{ job.job_id }}">
+    <div class="p-6 sm:p-8">
+        <div class="flex items-start gap-4">
+            <!-- Company Logo -->
+            <div class="flex-shrink-0">
+                <img src="{{ job.company.company_logo.url }}"
+                     alt="{{ job.company.company_name }} logo"
+                     width="48"
+                     height="48"
+                     loading="lazy"
+                     class="h-12 w-12 rounded-full object-contain ring-1 ring-gray-200" />
+            </div>
+            <!-- Job Details -->
+            <div class="flex-1">
+                <h3 id="featured-job-{{ job.job_id }}"
+                    class="text-lg font-semibold text-gray-900">
+                    <a href="{% url 'job_detail' job.job_id job.job_title|slugify %}"
+                       class="hover:text-emerald-600 focus:outline-none">{{ job.job_title }}</a>
+                </h3>
+                <a href="{% url 'company_profile' job.company.id job.company.company_name|slugify %}"
+                   class="mt-1 text-sm text-gray-600 hover:text-emerald-600 focus:outline-none">{{ job.company.company_name }}</a>
+                <!-- Job Metadata -->
+                <div class="mt-4 flex flex-wrap items-center gap-2">
+                    <span class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
+                        {{ job.job_type }}
+                    </span>
+                    <span class="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700">
+                        {{ job.experience_level }}
+                    </span>
+                    <span class="inline-flex items-center rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700">
+                        {{ job.location }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Salary and Apply -->
+        <div class="mt-6 flex items-center justify-between">
+            <p class="text-sm font-medium text-gray-900">{{ job.salary_range }}</p>
+            <a href="{% url 'job_detail' job.job_id job.job_title|slugify %}"
+               class="text-sm font-medium text-emerald-600 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+               aria-label="View {{ job.job_title }} details">View details →</a>
+        </div>
+    </div>
+    <!-- Featured Badge -->
+    {% if job.is_featured %}
+        <div class="absolute top-4 right-4">
+            <span class="inline-flex items-center rounded-full bg-yellow-50 px-2.5 py-0.5 text-xs font-medium text-yellow-800">
+                Featured
+            </span>
+        </div>
+    {% endif %}
+</article>

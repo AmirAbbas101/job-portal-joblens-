@@ -1,0 +1,145 @@
+<section class="relative z-[999] lg:mb-14">
+    <nav class="flex shadow-sm px-4 sm:px-10 lg:px-[128px] bg-white text-xl min-h-[70px] min-w-full tracking-wide lg:fixed">
+        <div class="flex flex-wrap items-center justify-between gap-5 w-full">
+            <a href="{% url 'home' %}" class="joblens-logo text-gray-700">JobLens</a>
+            <div id="collapseMenu"
+                 class="max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50">
+                <button id="toggleClose"
+                        class="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="w-12 h-12 fill-secondary"
+                         viewBox="0 0 320.591 320.591">
+                        <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" data-original="#000000">
+                        </path>
+                        <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" data-original="#000000">
+                        </path>
+                    </svg>
+                </button>
+                <ul class="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
+                    <li class="mb-6 hidden max-lg:block">
+                        <a href="{% url 'home' %}">
+                            <h1 class="text-gray-700 mx-auto text-3xl font-bold">JobLens</h1>
+                        </a>
+                    </li>
+                    <li class="list-item">
+                        <a href="{% url 'home' %}"
+                           class="nav-item {% if page_name == 'home' %} active-item {% else %} inactive-item {% endif %}">Home</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="{% url 'job_list' %}"
+                           class="nav-item {% if page_name == 'jobs' %} active-item {% else %} inactive-item {% endif %}">Jobs</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="javascript:void(0)"
+                           class="nav-item {% if page_name == 'page_name' %} active-item {% else %} inactive-item {% endif %}">Feature</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="javascript:void(0)"
+                           class="nav-item {% if page_name == 'page_name' %} active-item {% else %} inactive-item {% endif %}">Blog</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="javascript:void(0)"
+                           class="nav-item {% if page_name == 'page_name' %} active-item {% else %} inactive-item {% endif %}">About</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="javascript:void(0)"
+                           class="nav-item {% if page_name == 'page_name' %} active-item {% else %} inactive-item {% endif %}">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex max-lg:ml-auto justify-center items-center space-x-3">
+                {% if user.is_authenticated %}
+                    {% if user.is_recruiter %}
+                        <a href="{% url 'post_job' request.user.id %}">
+                            <button class="btn-navbar">Post a Job</button>
+                        </a>
+                    {% endif %}
+                    <img id="avatarButton"
+                         type="button"
+                         data-dropdown-toggle="userDropdown"
+                         data-dropdown-placement="bottom-start"
+                         class="w-14 h-14 rounded-full cursor-pointer"
+                         src="{{ user.profile_img.url }}"
+                         alt="User dropdown" />
+                    <div id="userDropdown"
+                         class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="px-4 py-3 text-sm text-secondary dark:text-white">
+                            <div class="uppercase">
+                                {% if user.first_name %}
+                                    {{ user.first_name }} {{ user.last_name }}
+                                {% else %}
+                                    {{ user.username }}
+                                {% endif %}
+                            </div>
+                            <div class="font-medium truncate">{{ user.email }}</div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="avatarButton">
+                            <li>
+                                <a href="{% if user.is_job_seeker %} {% url 'job_seeker_dashboard' %} {% else %}{% url 'company_dashboard' %}{% endif %}"
+                                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="{% if user.is_job_seeker %} {% url 'job_seeker_profile_settings' %} {% else %}{% endif %}"
+                                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                            </li>
+                        </ul>
+                        <div class="py-1">
+                            <a href="{% url 'logout' %}"
+                               class="block min-w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                            out</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <button class="btn-navbar">Login</button>
+                    </a>
+                    <a href="{% url 'register' %}">
+                        <button class="btn-navbar">Sign up</button>
+                    </a>
+                {% endif %}
+                <button data-collapse-toggle="navbar-user"
+                        type="button"
+                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        aria-controls="navbar-user"
+                        aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5"
+                         aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 lg:hidden"
+         id="navbar-user">
+        <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-secondary dark:border-gray-700">
+            <li>
+                <a href="#"
+                   class="block py-2 px-3 text-white bg-primary-green rounded-sm md:bg-transparent md:text- md:p-0 md:dark:text-secondary-green"
+                   aria-current="page">Home</a>
+            </li>
+            <li>
+                <a href="#"
+                   class="block py-2 px-3 text-secondary rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-green md:p-0 dark:text-white md:dark:hover:text-secondary-green dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+            </li>
+            <li>
+                <a href="#"
+                   class="block py-2 px-3 text-secondary rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-green md:p-0 dark:text-white md:dark:hover:text-secondary-green dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+            </li>
+            <li>
+                <a href="#"
+                   class="block py-2 px-3 text-secondary rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-green md:p-0 dark:text-white md:dark:hover:text-secondary-green dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
+            </li>
+            <li>
+                <a href="#"
+                   class="block py-2 px-3 text-secondary rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-green md:p-0 dark:text-white md:dark:hover:text-secondary-green dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</section>

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}
+  About Us
+{% endblock title %}
+{% block content %}
+  <section class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">About JobLens</h1>
+        <p class="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          At <span class="font-semibold">JobLens</span>, we’re passionate about creating a smarter and more efficient way for job seekers to connect with the right opportunities. Whether you’re a recent graduate starting your career, or a seasoned professional seeking new challenges, our platform empowers you to find the perfect match quickly and easily.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="bg-gray-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-3xl font-semibold text-gray-900 mb-4">Our Vision</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            We envision a world where job hunting isn’t a stressful process but an empowering one. We aim to simplify the job search process by harnessing the power of AI to streamline resume analysis, offering both candidates and recruiters intelligent matching for a perfect fit.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            Our goal is to remove the barriers between talent and opportunity, ensuring that everyone, regardless of background, has access to the tools they need to succeed in their professional journey.
+          </p>
+        </div>
+        <div>
+          <h2 class="text-3xl font-semibold text-gray-900 mb-4">Our Mission</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            JobLens was founded on the principle of making job searching smarter, faster, and more transparent. By leveraging cutting-edge technology and real-time data, we provide candidates with a personalized job-seeking experience, while employers benefit from an intuitive platform that streamlines the hiring process.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            From resume analyzers to AI-driven job recommendations, we are committed to transforming the way people find jobs and how companies find talent.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="text-3xl font-semibold text-gray-900 mb-4">Why Choose Us?</h2>
+        <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
+          With <span class="font-semibold">JobLens</span>, you’ll benefit from a platform designed with your needs in mind. Whether you're a job seeker looking for your dream role or a recruiter trying to find the best talent, our platform offers:
+        </p>
+        <ul class="mt-8 space-y-4 text-left max-w-xl mx-auto">
+          <li class="flex items-start">
+            <span class="h-6 w-6 mr-3 text-green">&#10003;</span>
+            <p class="text-gray-600">AI-powered resume analysis for smarter job matching</p>
+          </li>
+          <li class="flex items-start">
+            <span class="h-6 w-6 mr-3 text-green">&#10003;</span>
+            <p class="text-gray-600">Tailored job recommendations based on your skills and preferences</p>
+          </li>
+          <li class="flex items-start">
+            <span class="h-6 w-6 mr-3 text-green">&#10003;</span>
+            <p class="text-gray-600">User-friendly interface that streamlines the job search process</p>
+          </li>
+          <li class="flex items-start">
+            <span class="h-6 w-6 mr-3 text-green">&#10003;</span>
+            <p class="text-gray-600">Data-driven insights for employers to make faster, smarter hiring decisions</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="text-3xl font-semibold text-gray-900 mb-6">Join Us On This Journey</h2>
+        <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto mb-6">
+          We’re just getting started, and there’s so much more to come. Join us on our mission to redefine the future of job hunting and recruitment.
+        </p>
+        <a href="{% url 'register' %}"
+           class="inline-block bg-[#e75768] text-white py-2 px-6 rounded-lg text-sm font-semibold hover:bg-[#dc616f]">
+          Get Started Today
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
